@@ -25,5 +25,15 @@ namespace Lab3
                 this.arr[i] = items[i];
             }
         }
+
+
+        public void printList()
+        {
+            for (int i = 0; i < Len; i++)
+            {
+                Console.WriteLine($"№{i}: {this.arr[i]};\n");
+            }
+            Console.WriteLine("\n\n");
+        }
     }
 }
