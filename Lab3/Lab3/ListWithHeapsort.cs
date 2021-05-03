@@ -47,11 +47,21 @@ namespace Lab3
             this.arr[Len++] = item;
         }
 
-        public void HeapSort()
+
+        public void HeapSort(bool ascending = true)
         {
+            int greater(int first, int second)
+            {
+                return first - second;
+            }
+            int lower(int first, int second)
+            {
+                return second - first;
+            }
+
             for (int i = Len / 2; i >= 1; i--)
             {
-                this.SettleRoot(i, Len);
+                this.SettleRoot(i, Len, ascending ? greater : lower);
             }
 
             for (int end = Len; end > 1;)
@@ -61,18 +71,18 @@ namespace Lab3
                 this[1] = this[end];
                 this[end] = temp;
 
-                this.SettleRoot(1, --end);
+                this.SettleRoot(1, --end, ascending ? greater : lower);
             }
 
         }
 
-        private void SettleRoot(int root_ind, int last_ind)
+        private void SettleRoot(int root_ind, int last_ind, Comparison<int> comparison)
         {
             int child_ind;
 
             while (2 * root_ind <= last_ind)           
             {
-                if (2 * root_ind < last_ind && this[2 * root_ind + 1] > this[2 * root_ind])
+                if (2 * root_ind < last_ind && comparison(this[2 * root_ind + 1], this[2 * root_ind]) > 0)
                 {
                     child_ind = 2 * root_ind + 1;  
                 }
@@ -81,7 +91,7 @@ namespace Lab3
                     child_ind = 2 * root_ind;     
                 }
 
-                if (this[root_ind] < this[child_ind])
+                if (comparison(this[root_ind], this[child_ind]) < 0)
                 {
                     int temp = this[root_ind];
 
