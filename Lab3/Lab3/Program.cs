@@ -11,13 +11,14 @@ namespace Lab3
 
             for (int i = 0; i < arr.Length; i++)
             {
-                arr[i] = random.Next(0, 1000);
+                arr[i] = random.Next(-100, 100);
             }
 
             ListWithHeapsort list = new(arr);
             list.printList();
             list.HeapSort();
             list.printList();
+            list.DeleteTop();
         }
     }
 }

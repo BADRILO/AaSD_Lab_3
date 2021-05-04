@@ -47,6 +47,38 @@ namespace Lab3
             this.arr[Len++] = item;
         }
 
+        public int DeleteTop(bool constructToMaxheap = true)
+        {
+            int greater(int first, int second)
+            {
+                return first - second;
+            }
+            int lower(int first, int second)
+            {
+                return second - first;
+            }
+
+            for (int i = Len / 2; i >= 1; i--)  //конструируем из массива heap
+            {
+                this.SettleRoot(i, Len, constructToMaxheap ? greater : lower);
+            }
+            Console.WriteLine("Constructed to heap:");
+            this.printList();
+
+            //удаляем первый элемент
+            int top = this.arr[0];
+            Array.Copy(this.arr, 1, this.arr, 0, --this.Len);
+
+            for (int i = Len / 2; i >= 1; i--)  //восстанавливаем heap
+            {
+                this.SettleRoot(i, Len, constructToMaxheap ? greater : lower);
+            }
+            Console.WriteLine("Reconstructed to heap without top item:");
+            this.printList();
+
+            return top;
+        }
+
 
         public void HeapSort(bool ascending = true)
         {
@@ -113,6 +145,18 @@ namespace Lab3
             set 
             {
                 this.arr[index - 1] = value;
+            }
+        }
+
+        public int this[uint index]
+        {
+            get
+            {
+                return this.arr[index];
+            }
+            set
+            {
+                this.arr[index] = value;
             }
         }
     }
